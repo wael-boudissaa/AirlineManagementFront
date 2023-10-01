@@ -1,16 +1,26 @@
 import React, { useEffect, useState } from "react";
 
-const SearchProfile = ({ 
+const SearchProfile = ({
   getGroupes,
   employe,
   setEmploye,
-  groupe, 
+  groupe,
   fetchDataEmploye,
 }) => {
   const [openDropDown, setOpenDropDown] = useState(false);
   const [groupeSelected, setGroupeSelected] = useState("");
+  const [employeSearch, setEmployeSearch] = useState("");
 
-
+  const FindEmploye = () => {
+    const val = employeSearch;
+    const foundEmployee = employe.find((employee) => employee.first_name === val);
+  
+    if (foundEmployee) {
+      console.log(foundEmployee);
+    } else {
+      console.log("Employee not found");
+    }
+  };
   
 
   const getEmployeDependGroupe = async (name_groupe) => {
@@ -37,7 +47,6 @@ const SearchProfile = ({
       console.log(err);
     }
   };
-  
 
   return (
     <div class="flex w-full h-11">
@@ -51,8 +60,7 @@ const SearchProfile = ({
             setOpenDropDown(!openDropDown);
             getGroupes();
           }}>
-            
-           {groupeSelected ? groupeSelected : "All"}
+          {groupeSelected ? groupeSelected : "All"}
           <svg
             class="w-2.5 h-2.5 ml-2.5"
             aria-hidden="true"
@@ -106,11 +114,19 @@ const SearchProfile = ({
           id="search-dropdown"
           class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg border-l-gray-50 border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-l-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
           placeholder="Search Mockups, Logos, Design Templates..."
+          value={employeSearch}
+          onChange={(e) => {
+            setEmployeSearch(e.target.value);
+          }}
           required
         />
         <button
           type="submit"
-          class="absolute top-0 right-0 p-2.5 text-sm font-medium h-full text-white bg-blue-700 rounded-r-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+          class="absolute top-0 right-0 p-2.5 text-sm font-medium h-full text-white bg-blue-700 rounded-r-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          onClick={()=> {
+            FindEmploye();
+            console.log('hlo')
+          }}>
           <svg
             class="w-4 h-4"
             aria-hidden="true"

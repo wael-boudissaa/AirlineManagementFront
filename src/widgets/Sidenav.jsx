@@ -16,10 +16,12 @@ import {
   PowerIcon,
 } from "@heroicons/react/24/solid";
 import { Navigate, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import AuthContext from "../context/UserContext";
  
 export function Sidenav() {
   const navigate = useNavigate();
-
+   const {Logout}= useContext(AuthContext)
   return (
     <Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/3  ">
       <div className="mb-2 p-4">
@@ -56,7 +58,7 @@ export function Sidenav() {
           </ListItemPrefix>
           Settings
         </ListItem>
-        <ListItem >
+        <ListItem  onClick={()=>Logout()}>
           <ListItemPrefix>
             <PowerIcon className="h-5 w-5" />
           </ListItemPrefix>

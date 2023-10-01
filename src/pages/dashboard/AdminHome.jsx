@@ -1,23 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Sidenav } from "../../widgets/Sidenav";
 import { TableEmployeToday } from "../../widgets/Tables/TableEmployeToday";
 import { ListFlights } from "../../widgets/Cards/ListFlights";
 import { IconButton } from "@material-tailwind/react";
 import { AddFlightPopup } from "../../widgets/Popups/AddFlightPopup";
 import { useNavigate } from "react-router-dom";
+import AuthContext from "../../context/UserContext";
 
 const AdminHome = () => {
-  const nameFlight = "F05-5635";
   const [openPAddFlight, setOpenP] = useState(false);
   const [flightToday, setFlightToday] = useState([]);
   const [flights, setFlights] = useState([]);
   const navigate = useNavigate();
+  const { authTokens } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchTodayFlights = async () => {
       try {
         const fetchData = await fetch("http://localhost:5001/flight/today", {
           method: "GET",
+          headers: {
+            authorization: `Bearer ${authTokens}`,
+          },
         });
         if (fetchData.ok) {
           const data = await fetchData.json();
@@ -68,7 +72,9 @@ const AdminHome = () => {
             {" "}
             {flights.map(
               ({ idflight, dateflight, flightfrom, destination, duration }) => (
-                <div className="w-5/12" onClick={()=> navigate(`flight/${idflight}`)}>
+                <div
+                  className="w-5/12"
+                  onClick={() => navigate(`flight/${idflight}`)}>
                   {" "}
                   <ListFlights
                     idflight={idflight}

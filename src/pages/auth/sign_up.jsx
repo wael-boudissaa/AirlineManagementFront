@@ -1,55 +1,64 @@
-import {
-  Card,
-  Input,
- Button,
-  Typography,
-} from "@material-tailwind/react";
+import { Card, Input, Button, Typography } from "@material-tailwind/react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-
-
-
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const SignUp = () => {
-  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [first_name, setFirstName] = useState("");
   const [last_name, setLastName] = useState("");
   const [adresse, setAdresse] = useState("");
 
-
   const registerUser = async () => {
-    console.log(email, password);
-    const response = await fetch("http://localhost:5001/sign/up", {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify({
-        email: email,
-        password: password,
-        first_name : first_name, 
-        last_name : last_name, 
-        adresse : adresse
-      }),
-    });
-  
-    if (response.ok) {
-      const responseData = await response.json();
-      console.log(responseData)
-    } else {
-      console.log("Request failed. Status:", response.status);
+    try {
+      const response = await fetch("http://localhost:5001/sign/up", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+          first_name: first_name,
+          last_name: last_name,
+          adresse: adresse,
+        }),
+      });
+
+      if (response.ok) {
+        const responseData = await response.json();
+        toast.success("Registration successful");
+      } else {
+        const errorData = await response.json();
+        toast.error("Registration failed. Error");
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
     }
   };
-  const handleRegister=()=> {
-    registerUser();
-    setAdresse("");
-    setEmail("")
-    setPassword("")
-    setFirstName("")
-    setLastName("")
-  }
+
+  const handleRegister = () => {
+    if (
+      adresse.length === 0 ||
+      email.length === 0 ||
+      first_name.length === 0 ||
+      last_name.length === 0 ||
+      password.length === 0
+    ) {
+      toast.error("one of your information isn't fieled");
+    } else {
+      registerUser();
+
+      setAdresse("");
+      setEmail("");
+      setPassword("");
+      setFirstName("");
+      setLastName("");
+    }
+  };
   return (
     <div className="bg-blue-gray-300 w-screen h-screen flex flex-col justify-center  items-center">
+            <ToastContainer />
+
       <Card
         color="transparent"
         shadow={false}
@@ -62,14 +71,40 @@ const SignUp = () => {
         </Typography>
         <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
           <div className="mb-4 flex flex-col gap-6">
-            <Input size="lg" label="First Name" value = {first_name} onChange={(e)=> setFirstName(e.target.value)}/>
-            <Input size="lg" label="Last Name"  value = {last_name} onChange={(e)=> setLastName(e.target.value)}/>
-            <Input size="lg" label="Adresse" value = {adresse} onChange={(e)=> setAdresse(e.target.value)} />
-            <Input size="lg" label="Email"  value = {email} onChange={(e)=> setEmail(e.target.value)}/>
-            <Input type="password" size="lg" label="Password" value = {password} onChange={(e)=> setPassword(e.target.value)} />
+            <Input
+              size="lg"
+              label="First Name"
+              value={first_name}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+            <Input
+              size="lg"
+              label="Last Name"
+              value={last_name}
+              onChange={(e) => setLastName(e.target.value)}
+            />
+            <Input
+              size="lg"
+              label="Adresse"
+              value={adresse}
+              onChange={(e) => setAdresse(e.target.value)}
+            />
+            <Input
+              size="lg"
+              label="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <Input
+              type="password"
+              size="lg"
+              label="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </div>
 
-          <Button className="mt-6" fullWidth onClick={()=> handleRegister()}>
+          <Button className="mt-6" fullWidth onClick={() => handleRegister()}>
             Register
           </Button>
           <Typography color="gray" className="mt-4 text-center font-normal">

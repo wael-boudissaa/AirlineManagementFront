@@ -8,13 +8,13 @@ import { UserContext } from "./context/UserContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <ThemeProvider>
-    <BrowserRouter>
+  <BrowserRouter>
+    <ThemeProvider>
       <UserContext>
         <App />
       </UserContext>
-    </BrowserRouter>
-  </ThemeProvider>
+    </ThemeProvider>
+  </BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function

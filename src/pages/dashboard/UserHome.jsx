@@ -1,10 +1,32 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ProfileNavBar from "../../widgets/ProfileNavBar";
 import CardHome from "../../widgets/Cards/CardHome";
 import AuthContext from "../../context/UserContext";
 import { Footer } from "../../widgets/Footer";
+import { formatDateTime } from "../../widgets/Cards/ListFlights";
 const UserHome = () => {
-  const username = localStorage.getItem("username");
+  const { user } = useContext(AuthContext);
+  const [flightUser, setFlightUser] = useState([])
+  useEffect(() => {
+    const getFlightUser = async () => {
+      try {
+        const fetchData = await fetch(`http://localhost:5001/flight/q?idprofile=${user.id}`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          }
+        });
+        if (fetchData.ok) {
+          const result = await fetchData.json();
+          setFlightUser(result[0])
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getFlightUser()
+  }, []);
+  useEffect(()=>{console.log(user.id)},[])
   return (
     <div className=" flex flex-col justify-between bg-cover bg-center  ">
       <div className="w-full bg-image h-screen">
@@ -12,24 +34,22 @@ const UserHome = () => {
           <ProfileNavBar />
           <div className="flex flex-row items-center justify-between w-full h-full ">
             <div className="flex flex-col h-1/2 w-1/4 justify-center bg-white ml-3 rounded-3xl items-center ">
-              <h1 className="font-medium text-3xl text-cyan-900 ">
-                Welcome {username}
-              </h1>
+              <h1 className="font-medium text-3xl text-cyan-900 ">Welcome</h1>
               <h1 className="font-medium text-base text-black">
                 here you can find all the informations concerning your flight
               </h1>
             </div>
-            <div className="flex flex-col h-3/4 w-1/4 justify-center bg-cyan-700 mr-10 rounded-l-3xl items-center">
+          {flightUser?<div className="flex flex-col h-3/4 w-1/4 justify-center bg-cyan-700 mr-10 rounded-l-3xl items-center">
             <h1 className="font-medium text-3xl text-white ">
-                Your next flight gonna be 
-              </h1>
-              <h3>
-                02/01/2002
-              </h3>
-              <h3>
-                From Blida to Algiers
-              </h3>
-            </div>
+              Your next flight gonna be
+            </h1>
+            <h3>{formatDateTime(flightUser.dateflight)}</h3>
+         </div> : 
+          <div  className="flex flex-col h-3/4 w-1/4 justify-center bg-cyan-700 mr-10 rounded-l-3xl items-center">
+  <h1 className="font-medium text-xl text-white ">
+You have no flight YET            </h1>
+          </div>
+          }
           </div>
         </div>
       </div>
@@ -42,7 +62,7 @@ const UserHome = () => {
           <CardHome />
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };

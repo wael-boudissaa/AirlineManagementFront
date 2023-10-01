@@ -1,54 +1,140 @@
-
- import { createContext, useEffect, useState } from "react";
-import {  useNavigate } from "react-router-dom";
+import jwtDecode from "jwt-decode";
+import { createContext, useEffect, useState } from "react";
 const AuthContext = createContext();
 
 export default AuthContext;
 
-
-export const UserContext=({children})=> {
-  const [user,setUser]= useState(  {}
+export const UserContext = ({ children }) => {
+  let [user, setUser] = useState(() =>
+    localStorage.getItem("token")
+       ?   jwtDecode(localStorage.getItem("token"))
+      : ''
   );
-  const token = localStorage.getItem("token");
-  const navigate = useNavigate();
-
-  
+  let [refreshToken, setRefreshToken ] = useState("")
+  let [authTokens, setAuthTokens] = useState(() =>
+    localStorage.getItem("token")
+      ? (localStorage.getItem("token"))
+      : null
+  );
+  const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState("");
  
-  const getUser = async (name) => {
+  const getUser = async (user) => {
   
-  const response = await fetch("http://localhost:5001/sign/in", {
-    method: "POST",
-    headers: { "Content-type": "application/json" },
-    body: JSON.stringify({
-      email: name.email,
-      password: name.password,
-    }),
-  });
 
-  if (response.ok) {
+    try {
+      setIsLoading(true);
 
-    const responseData = await response.json();
-    console.log(responseData)
-    
-    const token = responseData.token ; 
-     localStorage.setItem('token' ,token )
-     setUser(responseData.user)
-     localStorage.setItem('username' ,responseData.user.first_name )
+      const response = await fetch("http://localhost:5001/sign/in", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: user.email,
+          password: user.password,
+        }),
+      });
 
-    navigate("/user")
-    return ({msg: 'succes'})
-  } else {
-    navigate("/signin")
-    console.log("Request failed. Status:", response.status);
-    return ({msg : 'err'})
-  }
+      if (!response.ok) {
+        setError("Email or password is incorrect");
+        setIsLoading(false);
+        return;
+      }
+
+      const responseData = await response.json();
+      const token = responseData.data.accessToken;
+      setRefreshToken(responseData.data.refreshToken)
+
+
+      if (!token) {
+        setError("Token not found in response");
+        setIsLoading(false);
+        return;
+      }
+
+      localStorage.setItem("token", token);
+      localStorage.setItem("username", responseData.data.user.first_name);
+
+      if (responseData.data.user.status === "employe") {
+        window.location.assign(`http://localhost:3000/${responseData.data.user.idprofile}`);
+      } else if (responseData.data.user.status === "admin") {
+        window.location.assign(`/admin`);
+
+      }
+      else if (responseData.data.user.status === "") {
+        window.location.assign(`/`);
+
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+      setError("An error occurred. Please try again later.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
 
   
+
+
+const Logout = () => {
+  localStorage.removeItem('token');
+  localStorage.removeItem('username');
+
+
+  window.location.assign('/signin'); 
 };
 
-let contextData = {
-  getUser : getUser ,
-}
 
-return (
-<AuthContext.Provider value ={contextData}>{children}</AuthContext.Provider>);}
+
+const updateToken = async (idprofile) => {
+  let res;
+  const response = await fetch("http://localhost:5001/sign/update", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ idprofile: idprofile}),
+  });
+
+  const data = await response.json();
+  if (response.status === 200) {
+    localStorage.setItem("token", data.newAccessToken);
+    setUser(jwtDecode(data.newAccessToken));
+    setAuthTokens(data.newAccessToken)
+    res = true;
+  } else {
+    Logout();
+    res = false;
+  }
+  return res;
+};
+
+
+  let contextData = {
+    user: user,
+    authTokens: authTokens,
+    Logout : Logout,
+    getUser: getUser,
+    isLoading : isLoading
+  };
+
+
+
+
+  useEffect(() => {
+    const REFRESH_INTERVAL = 1000*15*60 ; 
+    let interval = setInterval(() => {
+
+      if (authTokens) {
+        updateToken(user.id);
+      }
+    }, REFRESH_INTERVAL);
+    return () => clearInterval(interval);
+  }, [authTokens]);
+
+
+
+  return (
+    <AuthContext.Provider value={contextData}>{children}</AuthContext.Provider>
+  );
+};

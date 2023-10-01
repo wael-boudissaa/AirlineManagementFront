@@ -11,6 +11,9 @@ import Setting from "./pages/dashboard/AdminPages/Setting";
 import Inbox from "./pages/dashboard/AdminPages/Inbox";
 import Profile from "./pages/dashboard/AdminPages/Profile";
 import Flight from "./pages/dashboard/AdminPages/Flight";
+import PrivateAdminRoute from "./utils/PrivateAdminRoute";
+import PrivateEmployeRoute from "./utils/PrivateEmployeRoute";
+import Users from "./pages/dashboard/AdminPages/Users";
 
 function App() {
   return (
@@ -19,18 +22,63 @@ function App() {
       <Route path="/signin" element={<SignIn />} />
       <Route path="/signup" element={<SignUp />} />
 
-      <Route path="/user" element={<UserHome />} />
-      <Route path="/admin" element={<AdminHome />} />
-      <Route path="/admin/profile" element={<Profile />} />
-      <Route path="/admin/flight/:idflight" element={<Flight />} />
+      <Route
+        path="/:userid"
+        element={
+          <PrivateEmployeRoute>
+            <UserHome />
+          </PrivateEmployeRoute>
+        }
+      />
+      <Route
+        path="/admin"
+        element={
+          <PrivateAdminRoute>
+            <AdminHome />
+          </PrivateAdminRoute>
+        }
+      />
+      <Route
+        path="/admin/profile"
+        element={
+          <PrivateAdminRoute>
+            <Profile />
+          </PrivateAdminRoute>
+        }
+      />
+      <Route
+        path="/admin/flight/:idflight"
+        element={
+          <PrivateAdminRoute>
+            <Flight />
+          </PrivateAdminRoute>
+        }
+      />
 
-      <Route path="/admin/inbox" element={<Inbox />} />
-      <Route path="/admin/settings" element={<Setting />} />
-
-      {/* <Route
-        path="*"
-        element={<Navigate to={permission ? "/" : "/signin"} />}
-      /> */}
+      <Route
+        path="/admin/inbox"
+        element={
+          <PrivateAdminRoute>
+            <Inbox />
+          </PrivateAdminRoute>
+        }
+      />
+      <Route
+        path="/admin/settings"
+        element={
+          <PrivateAdminRoute>
+            <Setting />
+          </PrivateAdminRoute>
+        }
+      />
+      <Route
+        path="/admin/settings/profile"
+        element={
+          <PrivateAdminRoute>
+            <Users />
+          </PrivateAdminRoute>
+        }
+      />
     </Routes>
   );
 }
