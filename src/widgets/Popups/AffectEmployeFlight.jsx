@@ -8,6 +8,8 @@ import {
   Input,
   Textarea,
 } from "@material-tailwind/react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { Select, initTE } from "tw-elements";
 import { affichageId } from "../Tables/TableEmployeToday";
 initTE({ Select });
@@ -90,7 +92,7 @@ const AffectEmployeFlight = ({ openAffect, setOpenAffect, flightInfo }) => {
       });
       if (result.ok) {
         const data = await result.json();
-        console.log(data);
+        toast.success(data.msg);
       }
     } catch (err) {
       console.log(err);
@@ -105,6 +107,8 @@ const AffectEmployeFlight = ({ openAffect, setOpenAffect, flightInfo }) => {
           setOpenAffect(!openAffect);
         }}
         className="w-9/12 h-9/12">
+        <ToastContainer />
+
         <div className="flex items-center justify-between">
           <DialogHeader>Affect Employe</DialogHeader>
           <svg
@@ -192,8 +196,11 @@ const AffectEmployeFlight = ({ openAffect, setOpenAffect, flightInfo }) => {
                 onChange={(e) => {
                   const selectedValue = JSON.parse(e.target.value);
                   setSelectedEmploye(selectedValue.idemploye);
-                }}>
-                <option>Select employe name </option>
+                }}
+                aria-label="Select an employe">
+                <option>
+                  Select employe name
+                </option>
 
                 {employe.map(({ first_name, idemploye }) => (
                   <option
@@ -203,8 +210,14 @@ const AffectEmployeFlight = ({ openAffect, setOpenAffect, flightInfo }) => {
                   </option>
                 ))}
               </select>
-              {employe.length === 0 && selectedGroupe!=="Select groupe name"&& <div className="text-red-500 text-lg "> There is no employes to affect yet </div>}
 
+              {employe.length === 0 &&
+                selectedGroupe !== "Select groupe name" && (
+                  <div className="text-red-500 text-lg ">
+                    {" "}
+                    There is no employes to affect yet{" "}
+                  </div>
+                )}
 
               <div class="absolute inset-y-0 right-0 flex items-center pointer-events-none pr-8">
                 {/* <svg

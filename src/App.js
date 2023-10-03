@@ -14,6 +14,7 @@ import Flight from "./pages/dashboard/AdminPages/Flight";
 import PrivateAdminRoute from "./utils/PrivateAdminRoute";
 import PrivateEmployeRoute from "./utils/PrivateEmployeRoute";
 import Users from "./pages/dashboard/AdminPages/Users";
+import AllFlights from "./pages/dashboard/AdminPages/AllFlights";
 
 function App() {
   return (
@@ -74,8 +75,16 @@ function App() {
       <Route
         path="/admin/settings/profile"
         element={
-          <PrivateAdminRoute>
+          // <PrivateAdminRoute>
             <Users />
+          /* </PrivateAdminRoute> */
+        }
+      />
+      <Route
+        path="/admin/settings/flights"
+        element={
+          <PrivateAdminRoute>
+            <AllFlights />
           </PrivateAdminRoute>
         }
       />

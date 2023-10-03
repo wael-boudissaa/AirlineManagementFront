@@ -16,6 +16,7 @@ export const UserContext = ({ children }) => {
       ? (localStorage.getItem("token"))
       : null
   );
+  const [userInfo, setUserInfo]= useState([])
   const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
  
@@ -53,7 +54,6 @@ export const UserContext = ({ children }) => {
 
       localStorage.setItem("token", token);
       localStorage.setItem("username", responseData.data.user.first_name);
-
       if (responseData.data.user.status === "employe") {
         window.location.assign(`http://localhost:3000/${responseData.data.user.idprofile}`);
       } else if (responseData.data.user.status === "admin") {
@@ -115,6 +115,7 @@ const updateToken = async (idprofile) => {
     authTokens: authTokens,
     Logout : Logout,
     getUser: getUser,
+    userInfo : userInfo,
     isLoading : isLoading
   };
 

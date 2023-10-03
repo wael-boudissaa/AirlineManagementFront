@@ -13,6 +13,8 @@ const AdminHome = () => {
   const [flights, setFlights] = useState([]);
   const navigate = useNavigate();
   const { authTokens } = useContext(AuthContext);
+  const [clickedYear, setClickedYear] = useState(false);
+
 
   useEffect(() => {
     const fetchTodayFlights = async () => {
@@ -35,24 +37,39 @@ const AdminHome = () => {
     };
     fetchTodayFlights();
   }, []);
-  useEffect(() => {
-    const fetchFlights = async () => {
-      try {
-        const fetchData = await fetch("http://localhost:5001/flight", {
-          method: "GET",
-        });
-        if (fetchData.ok) {
-          const data = await fetchData.json();
-          setFlights(data.result);
-        } else {
-          console.log({ msg: "Error" });
-        }
-      } catch (err) {
-        console.log(err);
+  const fetchFlights = async () => {
+    try {
+      const fetchData = await fetch("http://localhost:5001/flight", {
+        method: "GET",
+      });
+      if (fetchData.ok) {
+        const data = await fetchData.json();
+        setFlights(data.result);
+      } else {
+        console.log({ msg: "Error" });
       }
-    };
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  useEffect(() => {
     fetchFlights();
   }, []);
+  const fetchYearFlights = async () => {
+    try {
+      const fetchData = await fetch("http://localhost:5001/flight/year", {
+        method: "GET",
+      });
+      if (fetchData.ok) {
+        const data = await fetchData.json();
+        setFlights(data.result);
+      } else {
+        console.log({ msg: "Error" });
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className="flex flex-row bg-blue-gray-50">
@@ -61,12 +78,37 @@ const AdminHome = () => {
         <div>
           <div className="w-full flex flex-row justify-between">
             <h1 className="text-2xl">Flights Planned next 30 days</h1>
-            <IconButton
-              onClick={() => {
-                setOpenP(!openPAddFlight);
-              }}>
-              <i class="fa-solid fa-plus"></i>{" "}
-            </IconButton>
+            <div className="flex flex-row justify-center items-center">
+              {" "}
+              <IconButton
+                onClick={() => {
+                  setOpenP(!openPAddFlight);
+                }}>
+                <i class="fa-solid fa-plus"></i>{" "}
+              </IconButton>
+              {!clickedYear ? (
+                <div
+                  className="ml-3 cursor-pointer"
+                  onClick={() => {
+                    fetchYearFlights();
+                    setClickedYear(!clickedYear);
+                  }}>
+                  See more flights
+                  <i class="fa-solid fa-angles-right"></i>
+                </div>
+              ) : (
+                <div
+                  className="ml-3 cursor-pointer"
+                  onClick={() => {
+                    fetchFlights();
+                    setClickedYear(!clickedYear);
+                  }}>
+                      <i class="fa-solid fa-angles-left"></i>
+                  See the next Month flights
+                
+                </div>
+              )}
+            </div>
           </div>
           <div className="flex flex-row flex-wrap justify-between">
             {" "}

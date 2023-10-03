@@ -4,10 +4,13 @@ import { IconButton } from "@material-tailwind/react";
 import AddGroupe from "../../../widgets/Popups/AddGroupe";
 import TableProfile from "../../../widgets/Tables/TableProfile";
 import { Navigate, useNavigate } from "react-router-dom";
+import AddFlightInformations from "../../../widgets/Popups/AddFlightInformations";
 
 const Setting = () => {
   const navigate = useNavigate();
   const [openAddGroupe, setOpenAddGroupe] = useState(false);
+  const [openFlightInformations, setOpenFlightInformations] = useState(false);
+
   return (
     <div className="flex flex-row ">
       <Sidenav />
@@ -18,7 +21,12 @@ const Setting = () => {
             <hr style={{ color: "#000", height: "5px" }} />
           </div>
 
-          <div className="item">
+          <div
+            className="item"
+            onClick={() => {
+              setOpenFlightInformations(!openFlightInformations);
+              console.log(openFlightInformations)
+              }}>
             {" "}
             Add Flight Information
             <i class="fa-solid fa-arrow-right"></i>
@@ -44,7 +52,9 @@ const Setting = () => {
           </div>
           <hr className="bg-black h-0.5 w-11/12 self-center" />
 
-          <div className="item">
+          <div className="item"  onClick={() => {
+              navigate("flights");
+            }}>
             {" "}
             Historique flights <i class="fa-solid fa-arrow-right"></i>
           </div>
@@ -56,7 +66,16 @@ const Setting = () => {
           </div>
 
           <hr className="bg-black h-0.5 w-11/12 self-center" />
+          <div
+            className="item"
+            onClick={() => {
+              setOpenAddGroupe(!openAddGroupe);
+            }}>
+            {" "}
+            add Remove events <i class="fa-solid fa-arrow-right"></i>
+          </div>
         </div>
+
         {/* 
        <TableProfile/> */}
 
@@ -64,6 +83,13 @@ const Setting = () => {
           <AddGroupe
             openAddGroupe={openAddGroupe}
             setOpenAddGroupe={setOpenAddGroupe}
+          />
+        )}
+
+        {openFlightInformations && (
+          <AddFlightInformations
+          openFlightInformations={openFlightInformations}
+          setOpenFlightInformations={setOpenFlightInformations}
           />
         )}
       </div>
