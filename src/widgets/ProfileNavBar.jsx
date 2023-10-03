@@ -1,9 +1,10 @@
 import React, { useContext } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { Badge, IconButton, Avatar } from "@material-tailwind/react";
 import AuthContext from "../context/UserContext";
 
 const ProfileNavBar = () => {
+  const navigate = useNavigate()
   const { authTokens, Logout } = useContext(AuthContext);
   return authTokens ? (
     <nav className="flex w-full flex-row items-center bg-white rounded-xl my-5 px-5">
@@ -18,7 +19,7 @@ const ProfileNavBar = () => {
         </button>
         <Link className="mx-8 hover:text-blue-gray-500">Account</Link>
 
-        <Link className="mx-8 hover:text-blue-gray-500">Historique</Link>
+        <Link to="tickets"className="mx-8 hover:text-blue-gray-500">Historique</Link>
 
         <Link className="mx-8 hover:text-blue-gray-500">Contact Us</Link>
         <Link className="mx-8 hover:text-blue-gray-500">Home</Link>

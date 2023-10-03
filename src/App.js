@@ -15,6 +15,7 @@ import PrivateAdminRoute from "./utils/PrivateAdminRoute";
 import PrivateEmployeRoute from "./utils/PrivateEmployeRoute";
 import Users from "./pages/dashboard/AdminPages/Users";
 import AllFlights from "./pages/dashboard/AdminPages/AllFlights";
+import TicketsUser from "./pages/dashboard/UserPages/TicketsUser";
 
 function App() {
   return (
@@ -28,6 +29,14 @@ function App() {
         element={
           <PrivateEmployeRoute>
             <UserHome />
+          </PrivateEmployeRoute>
+        }
+      />
+      <Route
+        path="/:userid/tickets"
+        element={
+          <PrivateEmployeRoute>
+            <TicketsUser />
           </PrivateEmployeRoute>
         }
       />
@@ -76,7 +85,7 @@ function App() {
         path="/admin/settings/profile"
         element={
           // <PrivateAdminRoute>
-            <Users />
+          <Users />
           /* </PrivateAdminRoute> */
         }
       />
