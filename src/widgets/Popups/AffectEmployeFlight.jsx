@@ -14,7 +14,12 @@ import { Select, initTE } from "tw-elements";
 import { affichageId } from "../Tables/TableEmployeToday";
 initTE({ Select });
 
-const AffectEmployeFlight = ({ openAffect, setOpenAffect, flightInfo }) => {
+const AffectEmployeFlight = ({
+  openAffect,
+  setOpenAffect,
+  flightInfo,
+  handleActionHappened,
+}) => {
   const [groupe, setGroupe] = useState([]);
   const [employe, setEmploye] = useState([]);
   const [selectedGroupe, setSelectedGroupe] = useState("All");
@@ -55,6 +60,7 @@ const AffectEmployeFlight = ({ openAffect, setOpenAffect, flightInfo }) => {
         if (result.ok) {
           const data = await result.json();
           setEmploye(data);
+          console.log(data);
         } else {
           console.log("err");
         }
@@ -198,17 +204,19 @@ const AffectEmployeFlight = ({ openAffect, setOpenAffect, flightInfo }) => {
                   setSelectedEmploye(selectedValue.idemploye);
                 }}
                 aria-label="Select an employe">
-                <option>
-                  Select employe name
-                </option>
+                <option>Select employe name</option>
 
-                {employe.map(({ first_name, idemploye }) => (
-                  <option
-                    key={idemploye}
-                    value={JSON.stringify({ idemploye, first_name })}>
-                    {first_name}
-                  </option>
-                ))}
+                {employe.length > 0 ? (
+                  employe.map(({ first_name, idemploye }) => (
+                    <option
+                      key={idemploye}
+                      value={JSON.stringify({ idemploye, first_name })}>
+                      {first_name}
+                    </option>
+                  ))
+                ) : (
+                  <option> There is no employes on this groupe </option>
+                )}
               </select>
 
               {employe.length === 0 &&
@@ -243,6 +251,7 @@ const AffectEmployeFlight = ({ openAffect, setOpenAffect, flightInfo }) => {
             color="green"
             onClick={() => {
               affectEmployeToFlight();
+              handleActionHappened();
             }}>
             Affect Employe
           </Button>

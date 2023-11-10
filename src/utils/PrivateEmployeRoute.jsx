@@ -5,14 +5,18 @@ import { Navigate, useParams } from 'react-router-dom';
 const PrivateEmployeRoute = ({ children }) => {
   const objectUser = useParams();
   
-  const { user, Logout } = useContext(AuthContext)
+  const { user, Logout  } = useContext(AuthContext)
 
   const handleLogout = () => {
     Logout();
-    console.log(objectUser)
-    return <Navigate to="/signin" replace={true} />;
+
   };
 
-  return user.type === 'employe' && user.id === objectUser.userid ? children : handleLogout();
+  if ((user.type === 'employe' && user.id === objectUser.userid)) {
+    return children;
+  } else 
+    handleLogout();
+  
+  return null;
 };
 export default PrivateEmployeRoute

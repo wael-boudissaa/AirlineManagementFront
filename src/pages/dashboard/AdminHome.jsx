@@ -15,6 +15,7 @@ const AdminHome = () => {
   const { authTokens } = useContext(AuthContext);
   const [clickedYear, setClickedYear] = useState(false);
 
+  const [actionHappened, setActionHappened] = useState(false);
 
   useEffect(() => {
     const fetchTodayFlights = async () => {
@@ -36,7 +37,7 @@ const AdminHome = () => {
       }
     };
     fetchTodayFlights();
-  }, []);
+  }, [actionHappened]);
   const fetchFlights = async () => {
     try {
       const fetchData = await fetch("http://localhost:5001/flight", {
@@ -54,7 +55,7 @@ const AdminHome = () => {
   };
   useEffect(() => {
     fetchFlights();
-  }, []);
+  }, [actionHappened]);
   const fetchYearFlights = async () => {
     try {
       const fetchData = await fetch("http://localhost:5001/flight/year", {
@@ -137,7 +138,7 @@ const AdminHome = () => {
           ))}
         </div>
       </div>
-      <AddFlightPopup openPAddFlight={openPAddFlight} setOpenP={setOpenP} />
+      <AddFlightPopup openPAddFlight={openPAddFlight} setOpenP={setOpenP}  actionHappened= {actionHappened} setActionHappened = {setActionHappened}/>
     </div>
   );
 };

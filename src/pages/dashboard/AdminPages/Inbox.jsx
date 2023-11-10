@@ -37,6 +37,7 @@ const Inbox = () => {
               const result = await fetchData.json();
               setTicket(result);
               console.log(result);
+              localStorage.setItem("nbrticket", result.length);
             }
           } catch (err) {
             console.log(err);
@@ -48,7 +49,7 @@ const Inbox = () => {
     };
     getidAdmin();
   }, []);
-  const getMessages =async(idticket)=>{
+  const getMessages = async (idticket) => {
     try {
       const fetchData = await fetch(
         `http://localhost:5001/message/ticket/messages?idticket=${idticket}`,
@@ -66,19 +67,31 @@ const Inbox = () => {
     } catch (err) {
       console.log(err);
     }
-  }
+  };
 
   return (
     <div className="flex flex-row w-full justify-between ">
       <Sidenav />
       <div className="w-full my-12 mx-7">
-        <h1>Tickets </h1>
-        {ticket.map(({ title,idticket }) => (
+        <h1 className="my-7 text-3xl">Tickets </h1>
+        {ticket.map(({ title, idticket, email, first_name }) => (
           <div
-            class="p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400 cursor-pointer flex flex-row justify-between"
+            class="p-4 mb-4  rounded-lg bg-blue-50  flex flex-row justify-between items-center"
             role="alert">
-            <span class="font-medium">{title}</span>
-            <div className="flex flex-row items-center" onClick={()=> { getMessages(idticket) ;setOpenMessage(!openMessage)}}> 
+            <div className="flex flex-col w-fit">
+              {" "}
+              <span class="font-medium">{first_name}</span>
+              <span className="text-xs">{email}</span>
+            </div>
+
+              <span class="font-medium">Ticket Title : {title}</span>
+
+            <div
+              className="flex flex-row items-center cursor-pointer"
+              onClick={() => {
+                getMessages(idticket);
+                setOpenMessage(!openMessage);
+              }}>
               {" "}
               <p>Check for messages </p>
               <i class="mx-4 fa-solid fa-angles-right"> </i>
@@ -86,7 +99,11 @@ const Inbox = () => {
           </div>
         ))}
       </div>
-      <MessagePopup openMessage={openMessage} setOpenMessage= {setOpenMessage} messages= {messages}/>
+      <MessagePopup
+        openMessage={openMessage}
+        setOpenMessage={setOpenMessage}
+        messages={messages}
+      />
     </div>
   );
 };

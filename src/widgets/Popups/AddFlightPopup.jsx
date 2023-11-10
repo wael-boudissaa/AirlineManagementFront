@@ -14,7 +14,7 @@ import {
   IconButton,
 } from "@material-tailwind/react";
 
-export function AddFlightPopup({ openPAddFlight, setOpenP }) {
+export function AddFlightPopup({ openPAddFlight, setOpenP,actionHappened, setActionHappened }) {
   const [date, setDateSelected] = useState("");
 
   const [plane, setPlane] = useState([]);
@@ -38,6 +38,8 @@ export function AddFlightPopup({ openPAddFlight, setOpenP }) {
       });
       if (postData.ok) {
         console.log("post suceces");
+        setActionHappened(!actionHappened)
+        
       } else {
         console.log("err");
       }

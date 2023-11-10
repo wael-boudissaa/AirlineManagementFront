@@ -12,6 +12,8 @@ const UserHome = () => {
   const [flightUser, setFlightUser] = useState([]);
   const [listAdmins, setListAdmins] = useState([]);
   const [adminSelected, setAdminSelected] = useState();
+  const [emailSelected, setEmailSelected] = useState();
+
   const [employe, setEmploye] = useState();
   const [text, setText] = useState("");
   const [title, setTitle] = useState("");
@@ -53,7 +55,7 @@ const UserHome = () => {
         console.log(err);
       }
     };
-    const getEmploye = async()=> {
+    const getEmploye = async () => {
       try {
         const fetchData = await fetch(
           `http://localhost:5001/employe/one?idprofile=${user.id}`,
@@ -64,17 +66,16 @@ const UserHome = () => {
             },
           }
         );
-        if (fetchData.ok) { 
+        if (fetchData.ok) {
           const result = await fetchData.json();
-          setEmploye(result[0].idemploye)
-    }
-    }
-    catch(err){
-      console.log(err)
-    }
-    }
+          setEmploye(result[0].idemploye);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
     getFlightUser();
-    getEmploye()
+    getEmploye();
     console.log(userInfo);
   }, []);
   useEffect(() => {
@@ -93,13 +94,13 @@ const UserHome = () => {
           idemploye: employe,
           adminid: adminSelected,
           message: text,
-          idprofile : user.id
+          idprofile: user.id,
         }),
       });
       if (fetchData.ok) {
         const result = await fetchData.json();
         toast.success(result.msg);
-        console.log(result.msg)
+        console.log(result.msg);
       }
     } catch (err) {
       console.log(err);
@@ -113,10 +114,10 @@ const UserHome = () => {
           <ProfileNavBar />
           <ToastContainer />
           <div className="flex flex-row items-center justify-between w-full h-full ">
-            <div className="flex flex-col h-1/2 w-1/4 justify-center bg-white ml-3 rounded-3xl items-center ">
-              <h1 className="font-medium text-3xl text-cyan-900 ">Welcome</h1>
-              <h1 className="font-medium text-base text-black">
-                here you can find all the informations concerning your flight
+            <div className="flex flex-col h-1/2 w-1/4 justify-center bg-white ml-3 rounded-3xl items-center  p-12 ">
+              <h1 className="font-medium text-3xl text-cyan-900 ">Welcome {localStorage.getItem('username')}</h1>
+              <h1 className="font-medium text-base text-black ">
+                Here  you can find all the informations concerning your flight
               </h1>
             </div>
             {flightUser ? (
@@ -145,20 +146,21 @@ const UserHome = () => {
           <CardHome />
         </div>
       </div>
-      <div className="flex flex-col items-center m-12 p-5">
+      <div className="flex flex-col items-center m-12 p-10 bg-blue-gray-100 rounded-3xl">
         <h1 className="text-3xl ml-5 my-7"> Contact Us </h1>
         <h2 className="text-xl ml-5 my-4">
           {" "}
           Complete this form and we will get back to you{" "}
         </h2>
         <div className=" flex flex-row w-full justify-between">
-          <div className="flex flex-col justify-between h-full w-5/12 items-center">
+          <div className="flex flex-col justify-between h-full w-5/12">
             {" "}
-            <Input
-              className="p-3 w-3/12 "
-              label={`${localStorage.getItem("username")}`}
-              disabled
-            />
+            <div className=" w-9/12 my-5 ">
+              <h3>Name of the user</h3>
+              <div className="w-full ">
+                <Input label={`${localStorage.getItem("username")}`} disabled />
+              </div>
+            </div>
             <Input
               className="p-3 w-3/12 "
               label="Give a Title To your problem"
@@ -167,29 +169,33 @@ const UserHome = () => {
                 setTitle(e.target.value);
               }}
             />
-            <span className="self-start mt-4">
-              Enter Your Message right here{" "}
-            </span>
-            <textarea
-              className="mt-2 mb-4 self-start resize-none p-4 w-7/12 rounded"
-              value={text}
-              onChange={(e) => {
-                setText(e.target.value);
-              }}
-            />
+            <div className="self-start w-full mt-8 ">
+              <span className="self-start">
+                Enter Your Message right here{" "}
+              </span>
+              <textarea
+                className="my-6 mx-10  resize-none p-4 w-full rounded"
+                value={text}
+                onChange={(e) => {
+                  setText(e.target.value);
+                }}
+              />
+            </div>
           </div>
           <div className="flex flex-col w-5/12 justify-center items-center">
             <Select
               label="Select the Admin you wish contact "
+              value={emailSelected}
               onClick={() => {
                 fetchAdmins();
               }}>
-              <Option>List of Admins</Option>
+              <Option selected>List of Admins</Option>
               {listAdmins.map(({ email, adminid }) => (
                 <Option
+                  value={email}
                   onClick={() => {
                     setAdminSelected(adminid);
-                    
+                    setEmailSelected(email);
                   }}>
                   {email}{" "}
                 </Option>
@@ -198,11 +204,13 @@ const UserHome = () => {
           </div>
         </div>
         <button
-          className="bg-black rounded w-9/12 text-white p-4 hover:bg-gray-800 delay-150 ease-in"
+          className="bg-black rounded-2xl w-9/12 text-white p-4 hover:bg-gray-800 delay-150 ease-in"
           onClick={() => {
             createTicket();
-            console.log(employe)
-       
+            setTitle("")
+            setAdminSelected("")
+            setEmailSelected("")
+            setText("")
           }}>
           Send Your Message{" "}
         </button>

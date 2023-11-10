@@ -16,6 +16,7 @@ import PrivateEmployeRoute from "./utils/PrivateEmployeRoute";
 import Users from "./pages/dashboard/AdminPages/Users";
 import AllFlights from "./pages/dashboard/AdminPages/AllFlights";
 import TicketsUser from "./pages/dashboard/UserPages/TicketsUser";
+import Account from "./pages/dashboard/UserPages/Account";
 
 function App() {
   return (
@@ -37,6 +38,14 @@ function App() {
         element={
           <PrivateEmployeRoute>
             <TicketsUser />
+          </PrivateEmployeRoute>
+        }
+      />
+      <Route
+        path="/:userid/account"
+        element={
+          <PrivateEmployeRoute>
+            <Account />
           </PrivateEmployeRoute>
         }
       />

@@ -43,7 +43,7 @@ export function Sidenav() {
           </ListItemPrefix>
           Inbox
           <ListItemSuffix>
-            <Chip value="14" size="sm" variant="ghost" color="blue-gray" className="rounded-full" />
+            <Chip value={`${localStorage.getItem("nbrticket")}` }size="sm" variant="ghost" color="blue-gray" className="rounded-full" />
           </ListItemSuffix>
         </ListItem>
         <ListItem onClick={()=>navigate('/admin/profile')}>

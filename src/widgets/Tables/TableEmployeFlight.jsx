@@ -9,7 +9,7 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import AffectEmployeFlight from "../Popups/AffectEmployeFlight";
-const TableEmployeFlight = ({ employe ,flightInfo}) => {
+const TableEmployeFlight = ({ employe ,flightInfo,handleActionHappened}) => {
   const TABLE_HEAD = [
     "First Name",
     "Second Name",
@@ -99,7 +99,7 @@ const TableEmployeFlight = ({ employe ,flightInfo}) => {
           </tbody>
         )}
       </table>
-      <AffectEmployeFlight openAffect={openAffect} setOpenAffect ={setOpenAffect} flightInfo={flightInfo} />
+      <AffectEmployeFlight openAffect={openAffect} setOpenAffect ={setOpenAffect} flightInfo={flightInfo} handleActionHappened= {handleActionHappened} />
     </Card>
   );
 };

@@ -24,6 +24,7 @@ const AddFlightInformations = ({
 
   const [duration, setDuration] = useState('')
   const [destination, setDestination] = useState('')
+  const [description, setDescription] = useState('')
 
   const [flightfrom, setFlightFrom] = useState('')
 
@@ -39,6 +40,7 @@ const AddFlightInformations = ({
         body: JSON.stringify({
          
           duration: duration,
+          description : description,
           destination: destination,
           flightfrom: flightfrom,
         })  ,
@@ -72,6 +74,8 @@ const AddFlightInformations = ({
             <Input label="Enter the Flight Start from " value={flightfrom} onChange={(e)=> {setFlightFrom(e.target.value)}}></Input>
 
             <Input label="Enter the destination " value={destination} onChange={(e)=> {setDestination(e.target.value)}}></Input>
+            <Input label="Enter the flight description " value={description} onChange={(e)=> {setDescription(e.target.value)}}></Input>
+
           </CardBody>
           <CardFooter className="pt-0">
             <Button
