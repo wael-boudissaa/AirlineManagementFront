@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ProfileNavBar from "../../widgets/ProfileNavBar";
 import CardHome from "../../widgets/Cards/CardHome";
+import { Footer } from "../../widgets/Footer";
   const Home = () => {
 
   return (
@@ -23,7 +24,7 @@ import CardHome from "../../widgets/Cards/CardHome";
         
         </div>
       </div>
-      <CardHome />
+      <Footer/>
     </div>
   );
 };

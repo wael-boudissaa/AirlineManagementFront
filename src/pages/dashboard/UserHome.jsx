@@ -136,16 +136,7 @@ const UserHome = () => {
             )}
           </div>
         </div>
-      </div>
-      <div className="flex flex-col items-center">
-        <h1 className="text-3xl ml-5 my-7"> News</h1>
-        <div className="flex flex-row items-center flex-wrap justify-between">
-          <CardHome />
-          <CardHome />
-          <CardHome />
-          <CardHome />
-        </div>
-      </div>
+      </div>1
       <div className="flex flex-col items-center m-12 p-10 bg-blue-gray-100 rounded-3xl">
         <h1 className="text-3xl ml-5 my-7"> Contact Us </h1>
         <h2 className="text-xl ml-5 my-4">

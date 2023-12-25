@@ -58,15 +58,6 @@ const Setting = () => {
             {" "}
             Historique flights <i class="fa-solid fa-arrow-right"></i>
           </div>
-          <hr className="bg-black h-0.5 w-11/12 self-center" />
-          <div
-            className="item"
-            onClick={() => {
-              setOpenAddGroupe(!openAddGroupe);
-            }}>
-            {" "}
-            add Remove events <i class="fa-solid fa-arrow-right"></i>
-          </div>
         </div>
 
         {/* 

@@ -6,6 +6,8 @@ import img from "../../../Images/airplane.jpeg";
 import { TableEmploye } from "../../../widgets/Tables/TableEmploye";
 import TableEmployeFlight from "../../../widgets/Tables/TableEmployeFlight";
 import { affichageId } from "../../../widgets/Tables/TableEmployeToday";
+import { Sidenav } from "../../../widgets/Sidenav";
+
 const Flight = () => {
   const [flightInfo, setFlightInfo] = useState([]);
   const [employeFlight, setEmployeFlight] = useState([]);
@@ -60,13 +62,13 @@ const Flight = () => {
   }, [actionHappened]);
 
   return (
-    <section className="flex flex-col w-full h-full ">
+    <section className="flex flex-row w-full h-screen ">
+      <Sidenav />
+
       {flightInfo.length > 0 ? (
-        <div>
-          {" "}
-          <NavbarFlight />
-          <div className="flex flex-row w-full h-full my-9 ">
-            <di className="fles flex-col w-5/12 h-full rounded-lg ">
+        <div >
+          <div className="flex flex-row mt-7 ">
+            <div className="flex flex-col w-5/12 h-full rounded-lg ">
               <div className="flex flex-row  p-5">
                 <h1 className="ml-6 text-xl text-blue-400">
                   This airplane : {flightInfo[0].idagence}
@@ -83,7 +85,7 @@ const Flight = () => {
                   alt="plane image"
                 />
               </div>
-            </di>
+            </div>
 
             <div className="flex flex-col  bg-teal-100 w-7/12 h-full rounded-l-2xl  p-10  ">
               <h1 className="text-2xl  font-semibold ">
