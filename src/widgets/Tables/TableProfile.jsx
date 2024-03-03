@@ -28,7 +28,7 @@ const TableProfile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const result = await fetch("http://localhost:5001/profile", {
+        const result = await fetch("https://airlinemanagementback.onrender.com/profile", {
           method: "GET",
         });
 

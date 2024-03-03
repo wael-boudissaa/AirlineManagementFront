@@ -13,7 +13,7 @@ const Inbox = () => {
     const getidAdmin = async () => {
       try {
         const fetchData = await fetch(
-          `http://localhost:5001/employe/adm?idprofile=${user.id}`,
+          `https://airlinemanagementback.onrender.com/employe/adm?idprofile=${user.id}`,
           {
             method: "GET",
             headers: {
@@ -25,7 +25,7 @@ const Inbox = () => {
           const result = await fetchData.json();
           try {
             const fetchData = await fetch(
-              `http://localhost:5001/message/ticket/admin?adminid=${result[0].adminid}`,
+              `https://airlinemanagementback.onrender.com/message/ticket/admin?adminid=${result[0].adminid}`,
               {
                 method: "GET",
                 headers: {
@@ -52,7 +52,7 @@ const Inbox = () => {
   const getMessages = async (idticket) => {
     try {
       const fetchData = await fetch(
-        `http://localhost:5001/message/ticket/messages?idticket=${idticket}`,
+        `https://airlinemanagementback.onrender.com/message/ticket/messages?idticket=${idticket}`,
         {
           method: "GET",
           headers: {

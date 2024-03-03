@@ -20,7 +20,7 @@ export function TableEmployeToday({ idflight }) {
     const fetchDataEmploye = async () => {
       try {
         const data = await fetch(
-          `http://localhost:5001/employe/today?idflight=${idflight}`,
+          `https://airlinemanagementback.onrender.com/employe/today?idflight=${idflight}`,
           { methode: "GET" }
         );
         if (data.ok ) {

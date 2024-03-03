@@ -32,7 +32,7 @@ const AddFlightInformations = ({
 
   const postFligtInfo = async () => {
     try {
-      const postData = await fetch("http://localhost:5001/flightinfo", {
+      const postData = await fetch("https://airlinemanagementback.onrender.com/flightinfo", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -15,7 +15,7 @@ const AddGroupe = ({ openAddGroupe, setOpenAddGroupe }) => {
   const addGroupe = async () => {
     let data = {};
     try {
-      const result = await fetch("http://localhost:5001/groupe/", {
+      const result = await fetch("https://airlinemanagementback.onrender.com/groupe/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

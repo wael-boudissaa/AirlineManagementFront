@@ -17,7 +17,7 @@ const ProfilePopup = ({
 }) => {
   const affectEmploeToGroupe = async (table_name, idgroupe, idemploye) => {
     try {
-      const affectEmploye = await fetch("http://localhost:5001/groupe/", {
+      const affectEmploye = await fetch("https://airlinemanagementback.onrender.com/groupe/", {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

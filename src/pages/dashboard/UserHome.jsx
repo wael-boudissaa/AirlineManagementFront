@@ -20,7 +20,7 @@ const UserHome = () => {
 
   const fetchAdmins = async () => {
     try {
-      const fetchData = await fetch(`http://localhost:5001/message`, {
+      const fetchData = await fetch(`https://airlinemanagementback.onrender.com/message`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -38,7 +38,7 @@ const UserHome = () => {
     const getFlightUser = async () => {
       try {
         const fetchData = await fetch(
-          `http://localhost:5001/flight/q?idprofile=${user.id}`,
+          `https://airlinemanagementback.onrender.com/flight/q?idprofile=${user.id}`,
           {
             method: "GET",
             headers: {
@@ -58,7 +58,7 @@ const UserHome = () => {
     const getEmploye = async () => {
       try {
         const fetchData = await fetch(
-          `http://localhost:5001/employe/one?idprofile=${user.id}`,
+          `https://airlinemanagementback.onrender.com/employe/one?idprofile=${user.id}`,
           {
             method: "GET",
             headers: {
@@ -84,7 +84,7 @@ const UserHome = () => {
 
   const createTicket = async () => {
     try {
-      const fetchData = await fetch(`http://localhost:5001/message/ticket`, {
+      const fetchData = await fetch(`https://airlinemanagementback.onrender.com/message/ticket`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

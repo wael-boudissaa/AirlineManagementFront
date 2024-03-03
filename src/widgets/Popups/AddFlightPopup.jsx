@@ -24,7 +24,7 @@ export function AddFlightPopup({ openPAddFlight, setOpenP,actionHappened, setAct
  
   const postFlight = async () => {
     try {
-      const postData = await fetch("http://localhost:5001/flight", {
+      const postData = await fetch("https://airlinemanagementback.onrender.com/flight", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -50,7 +50,7 @@ export function AddFlightPopup({ openPAddFlight, setOpenP,actionHappened, setAct
 
   const fetchPlane = async () => {
     try {
-      const fetchData = await fetch("http://localhost:5001/flightinfo/plane", {
+      const fetchData = await fetch("https://airlinemanagementback.onrender.com/flightinfo/plane", {
         method: "GET",
       });
       if (fetchData.ok) {
@@ -65,7 +65,7 @@ export function AddFlightPopup({ openPAddFlight, setOpenP,actionHappened, setAct
   };
   const fetchInfoFlight = async () => {
     try {
-      const fetchData = await fetch("http://localhost:5001/flightinfo", {
+      const fetchData = await fetch("https://airlinemanagementback.onrender.com/flightinfo", {
         method: "GET",
       });
       if (fetchData.ok) {

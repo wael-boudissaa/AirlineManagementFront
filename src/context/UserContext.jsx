@@ -23,7 +23,7 @@ export const UserContext = ({ children }) => {
     try {
       setIsLoading(true);
 
-      const response = await fetch("http://localhost:5001/sign/in", {
+      const response = await fetch("https://airlinemanagementback.onrender.com/sign/in", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -52,7 +52,7 @@ export const UserContext = ({ children }) => {
       localStorage.setItem("username", responseData.data.user.first_name);
       if (responseData.data.user.status === "employe") {
         window.location.assign(
-          `http://localhost:3000/${responseData.data.user.idprofile}`
+          `https://airline-management-front.vercel.app/${responseData.data.user.idprofile}`
         );
       } else if (responseData.data.user.status === "admin") {
         window.location.assign(`/admin`);
@@ -79,7 +79,7 @@ export const UserContext = ({ children }) => {
     let res;
   
     try {
-      const response = await fetch("http://localhost:5001/sign/update", {
+      const response = await fetch("https://airlinemanagementback.onrender.com/sign/update", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

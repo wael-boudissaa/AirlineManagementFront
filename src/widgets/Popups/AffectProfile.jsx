@@ -26,7 +26,7 @@ const AffectProfile = ({
   }, [isAoE]);
   const affectEmploye = async (idprofile) => {
     try {
-      const result = await fetch("http://localhost:5001/employe", {
+      const result = await fetch("https://airlinemanagementback.onrender.com/employe", {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -46,7 +46,7 @@ const AffectProfile = ({
   };
   const affectadmin = async (idprofile) => {
     try {
-      const result = await fetch("http://localhost:5001/employe/profileadmin ", {
+      const result = await fetch("https://airlinemanagementback.onrender.com/employe/profileadmin ", {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

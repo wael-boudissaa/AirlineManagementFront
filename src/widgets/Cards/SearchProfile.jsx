@@ -27,7 +27,7 @@ const SearchProfile = ({
     try {
       if (name_groupe !== "all") {
         const result = await fetch(
-          `http://localhost:5001/groupe/this?name_groupe=${name_groupe}`,
+          `https://airlinemanagementback.onrender.com/groupe/this?name_groupe=${name_groupe}`,
           {
             method: "GET",
             headers: {

@@ -10,7 +10,7 @@ const Profile = () => {
 
   const getGroupes = async () => {
     try {
-      const result = await fetch("http://localhost:5001/groupe", {
+      const result = await fetch("https://airlinemanagementback.onrender.com/groupe", {
         method: "GET",
         headers: {
           "Content-type": "application/json",
@@ -32,7 +32,7 @@ const Profile = () => {
   };
   const fetchDataEmploye = async () => {
     try {
-      const data = await fetch(`http://localhost:5001/employe`, {
+      const data = await fetch(`https://airlinemanagementback.onrender.com/employe`, {
         methode: "GET",
       });
       if (data.ok) {

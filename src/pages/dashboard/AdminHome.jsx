@@ -20,7 +20,7 @@ const AdminHome = () => {
   useEffect(() => {
     const fetchTodayFlights = async () => {
       try {
-        const fetchData = await fetch("http://localhost:5001/flight/today", {
+        const fetchData = await fetch("https://airlinemanagementback.onrender.com/flight/today", {
           method: "GET",
           headers: {
             authorization: `Bearer ${authTokens}`,
@@ -40,7 +40,7 @@ const AdminHome = () => {
   }, [actionHappened]);
   const fetchFlights = async () => {
     try {
-      const fetchData = await fetch("http://localhost:5001/flight", {
+      const fetchData = await fetch("https://airlinemanagementback.onrender.com/flight", {
         method: "GET",
       });
       if (fetchData.ok) {

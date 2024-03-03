@@ -22,7 +22,7 @@ const Flight = () => {
       console.log(objectflight);
       try {
         const result = await fetch(
-          `http://localhost:5001/flight/this?idflight=${objectflight.idflight}`,
+          `https://airlinemanagementback.onrender.com/flight/this?idflight=${objectflight.idflight}`,
           {
             method: "GET",
           }
@@ -44,7 +44,7 @@ const Flight = () => {
     const fetchEmployeFlight = async () => {
       try {
         const result = await fetch(
-          `http://localhost:5001/employe/this?idflight=${objectflight.idflight}`,
+          `https://airlinemanagementback.onrender.com/employe/this?idflight=${objectflight.idflight}`,
           {
             method: "GET",
           }

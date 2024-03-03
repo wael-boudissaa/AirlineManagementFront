@@ -27,7 +27,7 @@ const AffectEmployeFlight = ({
 
   const getGroupes = async () => {
     try {
-      const result = await fetch("http://localhost:5001/groupe", {
+      const result = await fetch("https://airlinemanagementback.onrender.com/groupe", {
         method: "GET",
         headers: {
           "Content-type": "application/json",
@@ -49,7 +49,7 @@ const AffectEmployeFlight = ({
     try {
       if (name_groupe !== "all") {
         const result = await fetch(
-          `http://localhost:5001/groupe/hasnoflights?name_groupe=${name_groupe}`,
+          `https://airlinemanagementback.onrender.com/groupe/hasnoflights?name_groupe=${name_groupe}`,
           {
             method: "GET",
             headers: {
@@ -72,7 +72,7 @@ const AffectEmployeFlight = ({
 
   const fetchDataEmploye = async () => {
     try {
-      const data = await fetch(`http://localhost:5001/employe/hasnoflight`, {
+      const data = await fetch(`https://airlinemanagementback.onrender.com/employe/hasnoflight`, {
         methode: "GET",
       });
       if (data.ok) {
@@ -86,7 +86,7 @@ const AffectEmployeFlight = ({
 
   const affectEmployeToFlight = async () => {
     try {
-      const result = await fetch("http://localhost:5001/employe/", {
+      const result = await fetch("https://airlinemanagementback.onrender.com/employe/", {
         method: "POST",
         headers: {
           "Content-type": "application/json",

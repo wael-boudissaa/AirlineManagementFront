@@ -16,7 +16,7 @@ const TableFlights = () => {
   useEffect(() => {
     const fetchflights = async () => {
       try {
-        const data = await fetch("http://localhost:5001/flight/all", {
+        const data = await fetch("https://airlinemanagementback.onrender.com/flight/all", {
           method: "GET",
         });
         if (data.ok){ 

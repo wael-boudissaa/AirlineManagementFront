@@ -14,7 +14,7 @@ const TicketsUser = () => {
     const getTicketsEmploye = async () => {
       try {
         const fetchData = await fetch(
-          `http://localhost:5001/employe/one?idprofile=${user.id}`,
+          `https://airlinemanagementback.onrender.com/employe/one?idprofile=${user.id}`,
           {
             method: "GET",
             headers: {
@@ -28,7 +28,7 @@ const TicketsUser = () => {
 
           try {
             const fetchData = await fetch(
-              `http://localhost:5001/message/ticket/employe?idemploye=${result[0].idemploye}`,
+              `https://airlinemanagementback.onrender.com/message/ticket/employe?idemploye=${result[0].idemploye}`,
               {
                 method: "GET",
                 headers: {
@@ -54,7 +54,7 @@ const TicketsUser = () => {
   const getMessages = async (idticket) => {
     try {
       const fetchData = await fetch(
-        `http://localhost:5001/message/ticket/messages?idticket=${idticket}`,
+        `https://airlinemanagementback.onrender.com/message/ticket/messages?idticket=${idticket}`,
         {
           method: "GET",
           headers: {

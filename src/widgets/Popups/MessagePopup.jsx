@@ -17,7 +17,7 @@ const MessagePopup = ({ openMessage, setOpenMessage, messages }) => {
   const sendMessage = async () => {
     try {
       const fetchData = await fetch(
-        `http://localhost:5001/message/ticket/messages`,
+        `https://airlinemanagementback.onrender.com/message/ticket/messages`,
         {
           method: "POST",
           headers: {

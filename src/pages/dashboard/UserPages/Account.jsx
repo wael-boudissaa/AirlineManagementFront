@@ -9,7 +9,7 @@ const Account = () => {
   useEffect(() => {
     const getInfoUser = async () => {
       try {
-        const fetchInfoUser = await fetch("http://localhost:5001/profile/one", {
+        const fetchInfoUser = await fetch("https://airlinemanagementback.onrender.com/profile/one", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
